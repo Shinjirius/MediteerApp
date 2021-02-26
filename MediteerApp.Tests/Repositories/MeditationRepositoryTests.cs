@@ -30,7 +30,7 @@ namespace MediteerApp.Tests.Repositories
             var result = _sut.GetAll(collectionId);
 
             // assert
-            result.Should().HaveCount(1);
+            result.Should().HaveCount(2);
         }
     }
 }
