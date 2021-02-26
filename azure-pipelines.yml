@@ -13,15 +13,18 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+# Build and runs tests
 - task: DotNetCoreCLI@2
   inputs:
     command: test
     projects: '*Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
 
+# Build project
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
 
+# Publish the artifect (so it can be deployed)
 - task: DotNetCoreCLI@2
   displayName: 'dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
   inputs:
