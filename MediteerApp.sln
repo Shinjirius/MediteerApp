@@ -1,0 +1,65 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediteerApp", "MediteerApp\MediteerApp.csproj", "{01FD4EBA-8921-4E30-A1D9-42BCB876A2F0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediteerApp.Tests", "MediteerApp.Tests\MediteerApp.Tests.csproj", "{42EA7D8A-FE30-41CC-8B85-733C9374114B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediteerApp.Data", "MediteerApp.Data\MediteerApp.Data.csproj", "{5FDA3436-BB3D-4976-8D15-C7EA6C155247}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01FD4EBA-8921-4E30-A1D9-42BCB876A2F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01FD4EBA-8921-4E30-A1D9-42BCB876A2F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01FD4EBA-8921-4E30-A1D9-42BCB876A2F0}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{01FD4EBA-8921-4E30-A1D9-42BCB876A2F0}.Debug|x64.Build.0 = Debug|Any CPU
+		{01FD4EBA-8921-4E30-A1D9-42BCB876A2F0}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{01FD4EBA-8921-4E30-A1D9-42BCB876A2F0}.Debug|x86.Build.0 = Debug|Any CPU
+		{01FD4EBA-8921-4E30-A1D9-42BCB876A2F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01FD4EBA-8921-4E30-A1D9-42BCB876A2F0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01FD4EBA-8921-4E30-A1D9-42BCB876A2F0}.Release|x64.ActiveCfg = Release|Any CPU
+		{01FD4EBA-8921-4E30-A1D9-42BCB876A2F0}.Release|x64.Build.0 = Release|Any CPU
+		{01FD4EBA-8921-4E30-A1D9-42BCB876A2F0}.Release|x86.ActiveCfg = Release|Any CPU
+		{01FD4EBA-8921-4E30-A1D9-42BCB876A2F0}.Release|x86.Build.0 = Release|Any CPU
+		{42EA7D8A-FE30-41CC-8B85-733C9374114B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42EA7D8A-FE30-41CC-8B85-733C9374114B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42EA7D8A-FE30-41CC-8B85-733C9374114B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{42EA7D8A-FE30-41CC-8B85-733C9374114B}.Debug|x64.Build.0 = Debug|Any CPU
+		{42EA7D8A-FE30-41CC-8B85-733C9374114B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{42EA7D8A-FE30-41CC-8B85-733C9374114B}.Debug|x86.Build.0 = Debug|Any CPU
+		{42EA7D8A-FE30-41CC-8B85-733C9374114B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42EA7D8A-FE30-41CC-8B85-733C9374114B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42EA7D8A-FE30-41CC-8B85-733C9374114B}.Release|x64.ActiveCfg = Release|Any CPU
+		{42EA7D8A-FE30-41CC-8B85-733C9374114B}.Release|x64.Build.0 = Release|Any CPU
+		{42EA7D8A-FE30-41CC-8B85-733C9374114B}.Release|x86.ActiveCfg = Release|Any CPU
+		{42EA7D8A-FE30-41CC-8B85-733C9374114B}.Release|x86.Build.0 = Release|Any CPU
+		{5FDA3436-BB3D-4976-8D15-C7EA6C155247}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FDA3436-BB3D-4976-8D15-C7EA6C155247}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FDA3436-BB3D-4976-8D15-C7EA6C155247}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5FDA3436-BB3D-4976-8D15-C7EA6C155247}.Debug|x64.Build.0 = Debug|Any CPU
+		{5FDA3436-BB3D-4976-8D15-C7EA6C155247}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5FDA3436-BB3D-4976-8D15-C7EA6C155247}.Debug|x86.Build.0 = Debug|Any CPU
+		{5FDA3436-BB3D-4976-8D15-C7EA6C155247}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FDA3436-BB3D-4976-8D15-C7EA6C155247}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FDA3436-BB3D-4976-8D15-C7EA6C155247}.Release|x64.ActiveCfg = Release|Any CPU
+		{5FDA3436-BB3D-4976-8D15-C7EA6C155247}.Release|x64.Build.0 = Release|Any CPU
+		{5FDA3436-BB3D-4976-8D15-C7EA6C155247}.Release|x86.ActiveCfg = Release|Any CPU
+		{5FDA3436-BB3D-4976-8D15-C7EA6C155247}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {34B2DDBA-0BAA-416F-9685-094E583504E1}
+	EndGlobalSection
+EndGlobal
