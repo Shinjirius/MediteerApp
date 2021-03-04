@@ -11,6 +11,8 @@ pool:
 
 variables:
   buildConfiguration: 'Release'
+  containerRegistry: 'martinwdejong_container_registry'
+  imageName: 'mediteer_app'
 
 stages:
 - stage: "BuildAndTest"
@@ -47,14 +49,25 @@ stages:
       - task: PublishBuildArtifacts@1
         displayName: 'publish artifacts'
 
-- stage: "BuildDocker"
-  displayName: "BuildDocker"
+- stage: "BuildAndPushDocker"
+  displayName: "BuildAndPushDocker"
   jobs:
     - job: "BuildDocker"
       steps:
       # Publish the artifect (so it can be deployed)
       - task: DockerInstaller@0
-        displayName: Docker Installer
+        displayName: Install Docker on VM
         inputs:
           dockerVersion: 17.09.0-ce
           releaseType: stable
+      - task: Docker@2
+        displayName: Login to ACR
+        inputs:
+          command: login
+          containerRegistry:  $(containerRegistry) 
+      - task: Docker@2
+        displayName: Build and Push Docker Image
+        inputs:
+          repository: $(imageName) 
+          command: buildAndPush
+          Dockerfile: MediteerApp/Dockerfile
