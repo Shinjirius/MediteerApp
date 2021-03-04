@@ -47,3 +47,14 @@ stages:
       - task: PublishBuildArtifacts@1
         displayName: 'publish artifacts'
 
+- stage: "BuildDocker"
+  displayName: "BuildDocker"
+  jobs:
+    - job: "BuildDocker"
+      steps:
+      # Publish the artifect (so it can be deployed)
+      - task: DockerInstaller@0
+        displayName: Docker Installer
+        inputs:
+          dockerVersion: 17.09.0-ce
+          releaseType: stable
