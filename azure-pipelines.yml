@@ -70,4 +70,4 @@ stages:
         inputs:
           repository: $(imageName) 
           command: buildAndPush
-          Dockerfile: MediteerApp/Dockerfile
+          Dockerfile: 'MediteerApp/Dockerfile'
