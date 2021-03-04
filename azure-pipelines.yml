@@ -12,28 +12,33 @@ pool:
 variables:
   buildConfiguration: 'Release'
 
-steps:
-# Build and runs tests
-- task: DotNetCoreCLI@2
-  inputs:
-    command: test
-    projects: '*Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+stages:
+- stage: "BuildAndTest"
+  displayName: "BuildAndTest"
+  jobs:
+    - job: "BuildAndTest"
+      steps:
+      # Build and runs tests
+      - task: DotNetCoreCLI@2
+        inputs:
+          command: test
+          projects: '*Tests/*.csproj'
+          arguments: '--configuration $(buildConfiguration)'
 
-# Build project
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+      # Build project
+      - script: dotnet build --configuration $(buildConfiguration)
+        displayName: 'dotnet build $(buildConfiguration)'
 
-# Publish the artifect (so it can be deployed)
-- task: DotNetCoreCLI@2
-  displayName: 'dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-  inputs:
-    command: publish
-    publishWebProjects: false
-    projects: MediteerApp/MediteerApp.csproj
-    arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
-    zipAfterPublish: true
+      # Publish the artifect (so it can be deployed)
+      - task: DotNetCoreCLI@2
+        displayName: 'dotnet publish --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        inputs:
+          command: publish
+          publishWebProjects: false
+          projects: MediteerApp/MediteerApp.csproj
+          arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+          zipAfterPublish: true
 
-- task: PublishBuildArtifacts@1
-  displayName: 'publish artifacts'
+      - task: PublishBuildArtifacts@1
+        displayName: 'publish artifacts'
 
