@@ -58,7 +58,7 @@ stages:
 - stage: "BuildAndPushDocker"
   displayName: "BuildAndPushDocker"
   jobs:
-    - job: "BuildDocker"
+    - job: "BuildAndPushDocker"
       steps:
       - task: DockerInstaller@0
         displayName: Install Docker on VM
