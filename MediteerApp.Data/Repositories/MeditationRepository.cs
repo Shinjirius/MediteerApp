@@ -1,4 +1,5 @@
-﻿using MediteerApp.Data.Models;
+﻿using MediteerApp.Data.Context;
+using MediteerApp.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +9,37 @@ namespace MediteerApp.Data.Repositories
 {
     public class MeditationRepository
     {
-        private List<Meditation> _meditaties = new List<Meditation>()
+        public MeditationRepository(MediteerContext context)
         {
-            new Meditation() { Id = Guid.NewGuid(), CollectionId = Guid.Parse("74E1ABD2-9143-41B2-8704-A4C77B6B6300")},
-            new Meditation() { Id = Guid.NewGuid(), CollectionId = Guid.Parse("74E1ABD2-9143-41B2-8704-A4C77B6B6300")},
-            new Meditation() { Id = Guid.NewGuid(), CollectionId = Guid.NewGuid()}
-        };
+            _context = context;
+        }
 
-        public Meditation Get(Guid id) => _meditaties.Find(m => m.Id == id);
-        public IEnumerable<Meditation> GetAll(Guid collectionId) => _meditaties.FindAll(m => m.CollectionId == collectionId);
+        private MediteerContext _context;
+
+        public Meditation Get(Guid id) => _context.Meditations.FirstOrDefault(m => m.Id == id);
+        public IEnumerable<Meditation> GetAll(Guid collectionId) => _context.Collections.FirstOrDefault(m => m.Id == collectionId).Meditations;
+
+
+        public void Add(Guid id, string name, Guid collectionId) 
+        {
+            var meditation = new Meditation { Id = id, Name = name };
+            _context.Collections.FirstOrDefault(m => m.Id == collectionId).Meditations.Add(meditation);
+            _context.SaveChanges();
+        }
+
+        public void Rename(Guid id, string name)
+        {
+            var meditation = new Meditation { Id = id, Name = name };
+            _context.Meditations.Update(meditation);
+            _context.SaveChanges();
+        }
+
+        public void Delete(Guid id)
+        {
+            var meditation = new Meditation { Id = id };
+            _context.Meditations.Attach(meditation);
+            _context.Meditations.Remove(meditation);
+            _context.SaveChanges();
+        }
     }
 }

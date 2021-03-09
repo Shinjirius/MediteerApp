@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using MediteerApp.Data.Repositories;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace MediteerApp.Tests.Repositories
 {
@@ -17,11 +19,20 @@ namespace MediteerApp.Tests.Repositories
         [ClassInitialize]
         public static void Init(TestContext context)
         {
-            _sut = new MeditationRepository();
+            DbContextOptions options = new DbContextOptionsBuilder()
+                .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Mediteer;Integrated Security=True")
+                .Options;
+            var dbContext = new Data.Context.MediteerContext(options);
+            var count = dbContext.Collections.Count();
+            dbContext.Collections.Add(new Data.Models.Collection { Id = Guid.NewGuid(), Name = "DDDD" });
+            dbContext.SaveChanges();
+            _sut = new MeditationRepository(dbContext);
         }
 
+
         [TestMethod]
-        public void GetAll_KnownCollection_ShouldReturnInCollection()
+        [ExpectedException(typeof(NullReferenceException))]
+        public void GetAll_UnknownCollection_ShouldReturnNullReferenceException()
         {
             // arrange
             var collectionId = Guid.Parse("74E1ABD2-9143-41B2-8704-A4C77B6B6300");
@@ -30,7 +41,7 @@ namespace MediteerApp.Tests.Repositories
             var result = _sut.GetAll(collectionId);
 
             // assert
-            result.Should().HaveCount(2);
+            Assert.Fail();
         }
     }
 }
