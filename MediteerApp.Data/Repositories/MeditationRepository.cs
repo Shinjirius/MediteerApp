@@ -17,7 +17,7 @@ namespace MediteerApp.Data.Repositories
         private MediteerContext _context;
 
         public Meditation Get(Guid id) => _context.Meditations.FirstOrDefault(m => m.Id == id);
-        public IEnumerable<Meditation> GetAll(Guid collectionId) => _context.Collections.FirstOrDefault(m => m.Id == collectionId).Meditations;
+        public IEnumerable<Meditation> GetAll(Guid collectionId) => _context.Collections.FirstOrDefault(m => m.Id == collectionId)?.Meditations;
 
 
         public void Add(Guid id, string name, Guid collectionId) 
