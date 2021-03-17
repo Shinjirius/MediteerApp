@@ -10,5 +10,7 @@ namespace MediteerApp.Data.Models
         public Guid Id { get; set; }
         [MaxLength(200)]
         public string Name { get; set; }
+        public Guid CollectionId { get; set; }
+        public Collection Collection { get; set; }
     }
 }

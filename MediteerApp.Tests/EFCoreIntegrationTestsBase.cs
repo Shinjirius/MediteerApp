@@ -37,12 +37,12 @@ namespace MediteerApp.Tests
 
         public virtual void TestInitialize()
         {
-            TransactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
+            //TransactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
         }
 
         public virtual void TestCleanup()
         {
-            TransactionScope.Dispose();
+            //TransactionScope.Dispose();
         }
 
     }

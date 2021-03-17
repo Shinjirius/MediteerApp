@@ -1,5 +1,6 @@
 ﻿using MediteerApp.Data.Context;
 using MediteerApp.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,10 @@ namespace MediteerApp.Data.Repositories
 
         public void Add(Guid id, string name, Guid collectionId) 
         {
-            var meditation = new Meditation { Id = id, Name = name };
-            _context.Collections.FirstOrDefault(m => m.Id == collectionId).Meditations.Add(meditation);
+            var meditation = new Meditation { Id = id, Name = name, CollectionId = collectionId};
+            var collection = _context.Collections.Where(m => m.Id == collectionId).FirstOrDefault();
+            meditation.Collection = collection;
+            _context.Add(meditation);
             _context.SaveChanges();
         }
 

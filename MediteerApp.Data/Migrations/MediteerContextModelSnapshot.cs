@@ -56,9 +56,11 @@ namespace MediteerApp.Data.Migrations
 
             modelBuilder.Entity("MediteerApp.Data.Models.Meditation", b =>
                 {
-                    b.HasOne("MediteerApp.Data.Models.Collection", null)
+                    b.HasOne("MediteerApp.Data.Models.Collection", "Collection")
                         .WithMany("Meditations")
                         .HasForeignKey("CollectionId");
+
+                    b.Navigation("Collection");
                 });
 
             modelBuilder.Entity("MediteerApp.Data.Models.Collection", b =>

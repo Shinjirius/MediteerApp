@@ -18,6 +18,7 @@ namespace MediteerApp.Tests.Repositories
     public class MeditationRepositoryTests : EFCoreIntegrationTestsBase
     {
         private MeditationRepository _sut;
+        private Collection _defaultCollection;
         private static MediteerContext _dbContext;
 
         [ClassInitialize]
@@ -33,26 +34,23 @@ namespace MediteerApp.Tests.Repositories
         }
 
         [TestInitialize]
-        public override void TestInitialize() { base.TestInitialize(); _sut = new MeditationRepository(_dbContext); }
+        public override void TestInitialize() {
+            base.TestInitialize(); 
+            _sut = new MeditationRepository(_dbContext);
+            
+            // Default data
+            _defaultCollection = new Collection() { Id = Guid.NewGuid(), Name = "" };
+            _dbContext.SaveChanges();
+            _dbContext.Add(_defaultCollection);
+            _dbContext.SaveChanges();
+
+        }
 
         [TestCleanup]
         public override void TestCleanup() => base.TestCleanup();
 
         [TestMethod]
-        public void GetAll_UnknownCollection_ShouldReturnNullReferenceException()
-        {
-            // arrange
-            var collectionId = Guid.NewGuid();
-
-            // act
-            var result = _sut.GetAll(collectionId);
-
-            // assert
-            result.Should().BeNull();
-        }
-         
-        [TestMethod]
-        public void GetAll_UnknownCollection_ShouldReturnNullReferenceException2()
+        public void GetAll_UnknownCollection_ShouldReturnNull()
         {
             // arrange
             var collectionId = Guid.NewGuid();
@@ -65,20 +63,38 @@ namespace MediteerApp.Tests.Repositories
         }
 
         [TestMethod]
-        public void GetAll_UnknownCollection_ShouldReturnNullReferenceException3()
+        public void GetAll_KnownNonEmptyCollection_ShouldReturnNonEmptyList()
         {
-            // arrange
-            var collectionId = Guid.NewGuid();
+            using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            { 
+                // arrange
+                var meditations = new Meditation[]{ 
+                    new Meditation
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = nameof(Add_ToExistingCollection_ShouldAdd),
+                        CollectionId = _defaultCollection.Id
+                    },
+                    new Meditation
+                    {
+                        Id = Guid.NewGuid(),
+                        Name = nameof(Add_ToExistingCollection_ShouldAdd),
+                        CollectionId = _defaultCollection.Id
+                    } 
+                };
+                _dbContext.AddRange(meditations);
+                _dbContext.SaveChanges();
 
-            // act
-            var result = _sut.GetAll(collectionId);
+                // act
+                var result = _sut.GetAll(_defaultCollection.Id);
 
-            // assert
-            result.Should().BeNull();
+                // assert
+                result.Should().BeEquivalentTo(meditations, options => options.Excluding(e => e.Collection));
+            }
         }
 
         [TestMethod]
-        public void GetAll_UnknownCollection_ShouldReturnNullReferenceException4()
+        public void GetAll_KnownEmptyCollection_ShouldReturnEmptyList()
         {
             // arrange
             var collectionId = Guid.NewGuid();
@@ -88,83 +104,52 @@ namespace MediteerApp.Tests.Repositories
 
             // assert
             result.Should().BeNull();
+        }
+
+
+        [TestMethod]
+        public void Add_ToExistingCollection_ShouldAdd()
+        {
+            using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                // arrange
+                var expected = new Meditation
+                {
+                    Id = Guid.NewGuid(),
+                    Name = nameof(Add_ToExistingCollection_ShouldAdd),
+                    CollectionId = _defaultCollection.Id
+                };
+
+                // act
+                _sut.Add(expected.Id, expected.Name, expected.CollectionId);
+
+                // assert
+                var result = _dbContext.Meditations.FirstOrDefault(m => m.Id == expected.Id);
+                result.Should().BeEquivalentTo(expected, options => options.Excluding(e => e.Collection));
+            }
         }
 
         [TestMethod]
-        public void GetAll_UnknownCollection_ShouldReturnNullReferenceException5()
+        public void Add_ToNonExistingCollection_ShouldThrowException()
         {
-            // arrange
-            var collectionId = Guid.NewGuid();
+            using (var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            {
+                // arrange
+                var expected = new Meditation
+                {
+                    Id = Guid.NewGuid(),
+                    Name = nameof(Add_ToExistingCollection_ShouldAdd),
+                    CollectionId = Guid.NewGuid()
+                };
 
-            // act
-            var result = _sut.GetAll(collectionId);
+                // act
+                _sut.Add(expected.Id, expected.Name, expected.CollectionId);
 
-            // assert
-            result.Should().BeNull();
-        }
-        [TestMethod]
-        public void GetAll_UnknownCollection_ShouldReturnNullReferenceException6()
-        {
-            // arrange
-            var collectionId = Guid.NewGuid();
-
-            // act
-            var result = _sut.GetAll(collectionId);
-
-            // assert
-            result.Should().BeNull();
+                // assert
+                var result = _dbContext.Meditations.FirstOrDefault(m => m.Id == expected.Id);
+                result.Should().BeNull();
+            }
         }
 
-        [TestMethod]
-        public void GetAll_UnknownCollection_ShouldReturnNullReferenceException7()
-        {
-            // arrange
-            var collectionId = Guid.NewGuid();
-
-            // act
-            var result = _sut.GetAll(collectionId);
-
-            // assert
-            result.Should().BeNull();
-        }
-
-        [TestMethod]
-        public void GetAll_UnknownCollection_ShouldReturnNullReferenceException8()
-        {
-            // arrange
-            var collectionId = Guid.NewGuid();
-
-            // act
-            var result = _sut.GetAll(collectionId);
-
-            // assert
-            result.Should().BeNull();
-        }
-
-        [TestMethod]
-        public void GetAll_UnknownCollection_ShouldReturnNullReferenceException9()
-        {
-            // arrange
-            var collectionId = Guid.NewGuid();
-
-            // act
-            var result = _sut.GetAll(collectionId);
-
-            // assert
-            result.Should().BeNull();
-        }
-
-        [TestMethod]
-        public void GetAll_UnknownCollection_ShouldReturnNullReferenceException10()
-        {
-            // arrange
-            var collectionId = Guid.NewGuid();
-
-            // act
-            var result = _sut.GetAll(collectionId);
-
-            // assert
-            result.Should().BeNull();
-        }
     }
 }

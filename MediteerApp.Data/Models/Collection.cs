@@ -11,6 +11,6 @@ namespace MediteerApp.Data.Models
 
         [MaxLength(200)]
         public string Name { get; set; }
-        public List<Meditation> Meditations { get; set; }
+        public ICollection<Meditation> Meditations { get; set; }
     }
 }
